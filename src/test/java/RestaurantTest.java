@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -73,10 +74,10 @@ class RestaurantTest {
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
         
-        double item1Price = restaurant.findItemByName("Sweet corn soup").getPrice();
-        double item2Price = restaurant.findItemByName("French fries").getPrice();
-        
-        double totalPrice = item1Price + item2Price;
+        Item item1 = restaurant.findItemByName("Sweet corn soup");
+        assertNotNull(item1);
+        Item item2 = restaurant.findItemByName("French fries");
+        assertNotNull(item2);
     }
     @Test
     public void when_total_items_are_calculated_item_prices_should_be_added() {
@@ -84,7 +85,8 @@ class RestaurantTest {
     	List<Item> itemList = new ArrayList<>();
     	itemList.add(new Item("Sweet corn soup",119));
     	itemList.add(new Item("Vegetable lasagne", 269));
-    	double totalOrder = restaurant.getTotalOrderCost(itemList);
+    	int totalOrder = restaurant.getTotalOrderCost(itemList);
+    	assertTrue(totalOrder>0);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
