@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -64,6 +66,25 @@ class RestaurantTest {
 
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+    @Test
+    public void when_calculating_total_order_item_should_be_present() {
+    	restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        
+        double item1Price = restaurant.findItemByName("Sweet corn soup").getPrice();
+        double item2Price = restaurant.findItemByName("French fries").getPrice();
+        
+        double totalPrice = item1Price + item2Price;
+    }
+    @Test
+    public void when_total_items_are_calculated_item_prices_should_be_added() {
+    	restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
+    	List<Item> itemList = new ArrayList<>();
+    	itemList.add(new Item("Sweet corn soup",119));
+    	itemList.add(new Item("Vegetable lasagne", 269));
+    	double totalOrder = restaurant.getTotalOrderCost(itemList);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
